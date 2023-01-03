@@ -1,0 +1,37 @@
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans&family=Lobster:wght@400&display=swap');
+
+:root {
+    --primary-color: #051c33;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 400;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 108px 8px 0;
+}
+
+// Header
+
+
+.header {
+    font-family: "Lobster","Josefin Sans",Helvetica,Arial,sans-serif;
+    font-size: 6.4rem;
+    color: var(--primary-color);
+}
