@@ -1,31 +1,34 @@
-import { useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useRef } from "react";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import clsx from "clsx";
 
 import { SearchIcon } from "../../Icons";
 import { useImagesList } from "../../hooks";
+import { NAVS_DATA } from "../../UI";
 import Results from "../Results";
 import styles from "./Search.module.scss";
 
-const NAVS_DATA = ["mountain", "beaches", "birds", "food"];
-
 const Search = () => {
-    const [searchText, setSearchText] = useState("");
-    const [showLoader, setShowLoader] = useState(false);
     const { location } = useParams();
-    const photos = useImagesList(location, setShowLoader);
+    const [photos, dataState] = useImagesList(location);
+    const inputRef = useRef();
+    const navigate = useNavigate();
 
     return (
         <>
             <div className={clsx(styles.container)}>
                 <input
+                    ref={inputRef}
                     type="text"
                     className={clsx(styles.search)}
                     placeholder="Search..."
-                    value={searchText}
-                    onChange={(e) => setSearchText(e.target.value)}
                 />
-                <button className={clsx(styles.submit)}>
+                <button
+                    className={clsx(styles.submit)}
+                    onClick={() =>
+                        navigate(`/search/${inputRef.current.value}`)
+                    }
+                >
                     <SearchIcon />
                 </button>
             </div>
@@ -38,7 +41,7 @@ const Search = () => {
                     </li>
                 ))}
             </ul>
-            {showLoader ? (
+            {dataState.isLoading ? (
                 <div className={styles.loader}></div>
             ) : (
                 <Results title={location ?? "mountain"} photos={photos} />
