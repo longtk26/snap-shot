@@ -56,3 +56,21 @@
     background-color: var(--primary-color);
     color: white;
 }
+
+//Loader
+
+.loader {   
+    margin-top: 150px;
+    width: 120px;
+    height: 120px;
+    border: 16px solid #f3f3f3;
+    border-radius: 50%;
+    border-top-color: var(--primary-color);
+    animation: spin 1.5s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}

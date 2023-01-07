@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import clsx from "clsx";
 
 import { SearchIcon } from "../../Icons";
+import { useImagesList } from "../../hooks";
 import Results from "../Results";
 import styles from "./Search.module.scss";
 
@@ -10,6 +11,10 @@ const NAVS_DATA = ["mountain", "beaches", "birds", "food"];
 
 const Search = () => {
     const [searchText, setSearchText] = useState("");
+    const [showLoader, setShowLoader] = useState(false);
+    const { location } = useParams();
+    const photos = useImagesList(location, setShowLoader);
+
     return (
         <>
             <div className={clsx(styles.container)}>
@@ -33,7 +38,11 @@ const Search = () => {
                     </li>
                 ))}
             </ul>
-            <Results title="Mountains Pictures" />
+            {showLoader ? (
+                <div className={styles.loader}></div>
+            ) : (
+                <Results title={location ?? "mountain"} photos={photos} />
+            )}
         </>
     );
 };
